@@ -1,0 +1,2 @@
+transporter,purchase_date,auction,category,lot_no,chassis_no,maker,model,year,price,purchase_tax,auction_fee,auction_tax,transport_charges,recycle,total,yard,document_date,arrival_date,number_plate,number_validity,notes
+Test Transporter,28-08-25,Uss Yokohama,Car,4785LRS,UERS8D627348,Suzuki,Swift,2020,1300000,130000,240000,24000,150000,20000,1864000,Gunma,30-08-25,29-08-25,EBR345,06-09-25,This is Sample Purchase
