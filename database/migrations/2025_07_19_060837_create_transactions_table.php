@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('account_id')->constrained('accounts','id');
             $table->date('date');
+            $table->foreignId('branch_id')->constrained('branches','id');
             $table->float('cr')->default(0);
             $table->float('db')->default(0);
             $table->text('notes')->nullable();

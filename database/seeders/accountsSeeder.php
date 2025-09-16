@@ -14,33 +14,29 @@ class accountsSeeder extends Seeder
     public function run(): void
     {
         accounts::create([
-            'title' => "Bank",
-            'type' => "Bank",
-            'status' => "Active",
+            'title'     => "Cash Account",
+            'type'      => "Cash",
+            'category'  => "Business",
+            'currency'  => "PKR",
+            'status'    => "Active",
+            'branch_id' => 1,
         ]);
 
         accounts::create([
-            'title' => "Test Consignee",
-            'type' => "Consignee",
-            'address_one' => "Test Address",
-            'address_two' => "Test Address",
-            'license' => "Test License",
-            'email' => "test@gmail.com",
-            'tel' => "1234567890",
-            'po_box' => "12345",
-            'status' => "Active",
+            'title'     => "Test Supplier",
+            'category'  => "Supplier",
+            'currency'  => "PKR",
+            'status'    => "Active",
+            'branch_id' => 1,
         ]);
 
         accounts::create([
-            'title' => "Test Transporter",
-            'type' => "Transporter",
-            'status' => "Active",
+            'title'     => "Test Customer",
+            'category'  => "Customer",
+            'currency'  => "PKR",
+            'status'    => "Active",
+            'branch_id' => 1,
         ]);
 
-        accounts::create([
-            'title' => "Nippon Oil",
-            'type' => "Vendor",
-            'status' => "Active",
-        ]);
     }
 }
