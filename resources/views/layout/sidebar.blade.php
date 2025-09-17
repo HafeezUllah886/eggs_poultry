@@ -61,7 +61,35 @@
                     <a class="nav-link menu-link" href="{{ route('dashboard') }}">
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>
                     </a>
-                </li> <!-- end Dashboard Menu -->
+                </li> 
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarFinance" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarFinance">
+                        <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Finance</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarFinance">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('account.create') }}" class="nav-link"
+                                    data-key="t-basic-elements">Create Account</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('accountsList', 'Business') }}" class="nav-link"
+                                    data-key="t-form-select">
+                                    Business Accounts </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('accountsList', 'Customer') }}" class="nav-link"
+                                    data-key="t-checkboxs-radios">Customer Accounts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('accountsList', 'Supplier') }}" class="nav-link"
+                                    data-key="t-pickers">
+                                    Supplier Accounts </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#branches" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarApps">
