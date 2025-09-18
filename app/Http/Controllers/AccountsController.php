@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\accounts;
 use App\Models\branches;
 use App\Models\method_transactions;
+use App\Models\transactions;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -94,13 +95,13 @@ class AccountsController extends Controller
     {
         $account = accounts::find($id);
 
-        $transactions = transactions::where('accountID', $id)->whereBetween('date', [$from, $to]);
+        $transactions = transactions::where('account_id', $id)->whereBetween('date', [$from, $to]);
         $transactions = $transactions->orderBy('date', 'asc')->orderBy('refID', 'asc')->get();
 
-        $pre_cr = transactions::where('accountID', $id)->whereDate('date', '<', $from);
+        $pre_cr = transactions::where('account_id', $id)->whereDate('date', '<', $from);
         $pre_cr = $pre_cr->sum('cr');
 
-        $pre_db = transactions::where('accountID', $id)->whereDate('date', '<', $from);
+        $pre_db = transactions::where('account_id', $id)->whereDate('date', '<', $from);
         $pre_db = $pre_db->sum('db');
 
         $pre_balance = $pre_cr - $pre_db;

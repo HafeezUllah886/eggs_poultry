@@ -84,8 +84,11 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('accountsList', 'Supplier') }}" class="nav-link"
-                                    data-key="t-pickers">
-                                    Supplier Accounts </a>
+                                    data-key="t-pickers">Supplier Accounts </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('accounts_adjustments.index') }}" class="nav-link"
+                                    data-key="t-pickers">Account Adjustments </a>
                             </li>
                         </ul>
                     </div>

@@ -47,23 +47,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
-    public function scopeOrderbookers($query)
-    {
-        return $query->where('role', 'Order Booker');
-    }
-
-    public function scopeAccountants($query)
-    {
-        return $query->where('role', 'Accountant');
-    }
+   
     public function scopeOperators($query)
     {
         return $query->where('role', 'Operator');
     }
 
-    public function products()
+    public function branch()
     {
-        return $this->hasMany(orderbooker_products::class, 'userID');
+        return $this->belongsTo(branches::class, 'branch_id');
     }
+
 }

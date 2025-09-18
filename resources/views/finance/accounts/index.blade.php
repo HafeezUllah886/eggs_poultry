@@ -11,8 +11,9 @@
                         <thead>
                             <th>#</th>
                             <th>Title</th>
+                            <th>Currency</th>
                             @if ($filter == 'Business')
-                                <th>Category</th>
+                                <th>Type</th>
                             @endif
                             @if ($filter == 'Supplier' || $filter == 'Customer')
                                 <th>Address</th>
@@ -27,8 +28,9 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $account->title }}</td>
+                                    <td>{{ $account->currency }}</td>
                                     @if ($filter == 'Business')
-                                        <td>{{ $account->category }}</td>
+                                        <td>{{ $account->type }}</td>
                                     @endif
                                     @if ($filter == 'Supplier' || $filter == 'Customer')
                                         <td>{{ $account->address }}</td>
@@ -37,7 +39,7 @@
                                     <td><a href="{{ route('account.status', [$account->id]) }}"
                                             class="badge bg-{{ $account->status == 'Active' ? 'success' : 'danger' }}">{{ $account->status }}</a>
                                     </td>
-                                    <td>{{-- {{ number_format(getAccountBalance($account->id)) }} --}}</td>
+                                    <td>{{ number_format(getAccountBalance($account->id)) }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-soft-secondary btn-sm dropdown" type="button"
@@ -64,7 +66,6 @@
                                             </ul>
                                         </div>
                                     </td>
-
                                 </tr>
                             @endforeach
                         </tbody>

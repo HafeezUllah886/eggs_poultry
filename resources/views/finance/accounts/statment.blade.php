@@ -26,7 +26,7 @@
                                     <div class="col-lg-3 col-6">
                                         <p class="text-muted mb-2 text-uppercase fw-semibold">Account Title</p>
                                         <h5 class="fs-14 mb-0">{{ $account->title }}</h5>
-                                        <h5 class="fs-14 mb-0">{{ $account->type }}</h5>
+                                        <h5 class="fs-14 mb-0">{{ $account->category }}</h5>
                                     </div>
                                     <!--end col-->
                                     <div class="col-lg-3 col-6">
@@ -78,7 +78,7 @@
                                         @endphp
                                             <tr>
                                                 <td>{{ $key+1 }}</td>
-                                                <td><a href="{{route('viewAttachment', $trans->refID)}}" target="_black">{{ $trans->refID }} <i class="ri-attachment-2"></i></a></td>
+                                                <td>{{ $trans->refID }}</td>
                                                 <td>{{ date('d M Y', strtotime($trans->date)) }}</td>
                                                 <td class="text-start" style="max-width: 200px; overflow-wrap: break-word; white-space: normal;">{{ $trans->notes }}</td>
                                                 <td class="text-end">{{ number_format($trans->cr) }}</td>
@@ -109,24 +109,5 @@
 
 @endsection
 
-@section('page-css')
-<link rel="stylesheet" href="{{ asset('assets/libs/datatable/datatable.bootstrap5.min.css') }}" />
-<!--datatable responsive css-->
-<link rel="stylesheet" href="{{ asset('assets/libs/datatable/responsive.bootstrap.min.css') }}" />
 
-<link rel="stylesheet" href="{{ asset('assets/libs/datatable/buttons.dataTables.min.css') }}">
-@endsection
-@section('page-js')
-    <script src="{{ asset('assets/libs/datatable/jquery.dataTables.min.js')}}"></script>
-    <script src="{{ asset('assets/libs/datatable/dataTables.bootstrap5.min.js')}}"></script>
-    <script src="{{ asset('assets/libs/datatable/dataTables.responsive.min.js')}}"></script>
-    <script src="{{ asset('assets/libs/datatable/dataTables.buttons.min.js')}}"></script>
-    <script src="{{ asset('assets/libs/datatable/buttons.print.min.js')}}"></script>
-    <script src="{{ asset('assets/libs/datatable/buttons.html5.min.js')}}"></script>
-    <script src="{{ asset('assets/libs/datatable/vfs_fonts.js')}}"></script>
-    <script src="{{ asset('assets/libs/datatable/pdfmake.min.js')}}"></script>
-    <script src="{{ asset('assets/libs/datatable/jszip.min.js')}}"></script>
-
-    <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
-@endsection
 

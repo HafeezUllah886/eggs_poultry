@@ -7,13 +7,14 @@ use App\Models\transactions;
 use App\Models\userAccounts;
 use App\Models\users_transactions;
 
-function createTransaction($accountID, $date, $cr, $db, $notes, $ref){
+function createTransaction($accountID, $date, $cr, $db, $branch_id,$notes, $ref){
     transactions::create(
         [
             'account_id' => $accountID,
             'date' => $date,
             'cr' => $cr,
             'db' => $db,
+            'branch_id' => $branch_id,
             'notes' => $notes,
             'refID' => $ref,
         ]
