@@ -68,8 +68,8 @@ class AccountsController extends Controller
             $account = accounts::create(
                 [
                     'title' => $request->title,
-                    'type' => $request->type,
-                    'category' => $request->category ?? "Cash",
+                    'type' => $request->type ?? "Cash",
+                    'category' => $request->category,
                     'contact' => $request->contact,
                     'address' => $request->address,
                     'currency' => $request->currency,
@@ -121,7 +121,7 @@ class AccountsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, accounts $account)
+    public function update(Request $request, $id)
     {
         $request->validate(
             [
@@ -131,7 +131,7 @@ class AccountsController extends Controller
                 'title.required' => "Please Enter Account Title",
             ]
         );
-        $account = accounts::find($request->accountID)->update(
+        $account = accounts::find($id)->update(
             [
                 'title' => $request->title,
                 'contact' => $request->contact ?? null,
@@ -141,7 +141,7 @@ class AccountsController extends Controller
             ]
         );
 
-        return redirect()->route('accountsList', $request->category)->with('success', "Account Updated");
+        return redirect()->route('accountsList', $account->category)->with('success', "Account Updated");
     }
 
     /**

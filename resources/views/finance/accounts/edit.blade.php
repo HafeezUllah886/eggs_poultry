@@ -43,10 +43,10 @@
                             @if($account->category == "Business")
                             <div class="col-md-6 mt-2" id="catBox">
                                 <div class="form-group">
-                                    <label for="category">Category</label>
-                                    <select name="category" id="category" class="form-control">
-                                        <option value="Bank" {{ $account->category == 'Bank' ? 'selected' : '' }}>Bank</option>
-                                        <option value="Cash" {{ $account->category == 'Cash' ? 'selected' : '' }}>Cash</option>
+                                    <label for="type">Type</label>
+                                    <select name="type" id="type" class="form-control">
+                                        <option value="Bank" {{ $account->type == 'Bank' ? 'selected' : '' }}>Bank</option>
+                                        <option value="Cash" {{ $account->type == 'Cash' ? 'selected' : '' }}>Cash</option>
                                     </select>
                                 </div>
                             </div>
