@@ -15,11 +15,11 @@ class AccountsController extends Controller
     {
         if(Auth()->user()->role == "Admin")
         {
-            $accounts = accounts::where('type', $filter)->orderBy('title', 'asc')->get();
+            $accounts = accounts::where('category', $filter)->orderBy('title', 'asc')->get();
         }
         else
         {
-            $accounts = accounts::where('type', $filter)->where('branchID', Auth()->user()->branchID)->orderBy('title', 'asc')->get();
+            $accounts = accounts::where('category', $filter)->where('branchID', Auth()->user()->branchID)->orderBy('title', 'asc')->get();
         }
         if($filter == "Other")
         {
@@ -68,8 +68,8 @@ class AccountsController extends Controller
             $account = accounts::create(
                 [
                     'title' => $request->title,
-                    'type' => $request->type ?? "Cash",
-                    'category' => $request->category,
+                    'type' => $request->type,
+                    'category' => $request->category ?? "Cash",
                     'contact' => $request->contact,
                     'address' => $request->address,
                     'currency' => $request->currency,
@@ -90,45 +90,24 @@ class AccountsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id, $from, $to, $orderbooker = 0)
+    public function show($id, $from, $to)
     {
-        $orderbooker = $orderbooker ?? 0;
         $account = accounts::find($id);
 
         $transactions = transactions::where('accountID', $id)->whereBetween('date', [$from, $to]);
-        if($orderbooker != 0)
-        {
-            $transactions = $transactions->where('orderbookerID', $orderbooker);
-        }
         $transactions = $transactions->orderBy('date', 'asc')->orderBy('refID', 'asc')->get();
 
         $pre_cr = transactions::where('accountID', $id)->whereDate('date', '<', $from);
-        if($orderbooker != 0)
-        {
-            $pre_cr = $pre_cr->where('orderbookerID', $orderbooker);
-        }
         $pre_cr = $pre_cr->sum('cr');
 
         $pre_db = transactions::where('accountID', $id)->whereDate('date', '<', $from);
-        if($orderbooker != 0)
-        {
-            $pre_db = $pre_db->where('orderbookerID', $orderbooker);
-        }
         $pre_db = $pre_db->sum('db');
 
         $pre_balance = $pre_cr - $pre_db;
 
-        
-        if($orderbooker != 0)
-        {
-           $cur_balance = getAccountBalanceOrderbookerWise($id, $orderbooker);
-        }
-        else
-        {
-            $cur_balance = getAccountBalance($id);
-        }
+        $cur_balance = getAccountBalance($id);
 
-        return view('Finance.accounts.statment', compact('account', 'transactions', 'pre_balance', 'cur_balance', 'from', 'to', 'orderbooker'));
+        return view('finance.accounts.statment', compact('account', 'transactions', 'pre_balance', 'cur_balance', 'from', 'to'));
     }
 
     /**
@@ -136,8 +115,7 @@ class AccountsController extends Controller
      */
     public function edit(accounts $account)
     {
-        $areas = area::where('branchID', Auth()->user()->branchID)->get();
-        return view('Finance.accounts.edit', compact('account', 'areas'));
+        return view('finance.accounts.edit', compact('account'));
     }
 
     /**
@@ -156,18 +134,14 @@ class AccountsController extends Controller
         $account = accounts::find($request->accountID)->update(
             [
                 'title' => $request->title,
-                'title_urdu' => $request->title_urdu,
-                'category' => $request->category,
                 'contact' => $request->contact ?? null,
-                'c_type' => $request->c_type,
-                'areaID' => $request->area ?? 1,
                 'address' => $request->address ?? null,
-                'address_urdu' => $request->address_urdu ?? null,
-                'credit_limit' => $request->limit ?? 0
+                'type' => $request->type ?? "Cash",
+                'currency' => $request->currency ?? "PKR",
             ]
         );
 
-        return redirect()->route('accountsList', $request->type)->with('success', "Account Updated");
+        return redirect()->route('accountsList', $request->category)->with('success', "Account Updated");
     }
 
     /**
