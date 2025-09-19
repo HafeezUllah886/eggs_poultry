@@ -2,44 +2,15 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            <form>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">From</span>
-                            <input type="date" class="form-control" placeholder="Username" name="start" value="{{$from}}" aria-label="Username" aria-describedby="basic-addon1">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">To</span>
-                            <input type="date" class="form-control" placeholder="Username" name="end" value="{{$to}}" aria-label="Username" aria-describedby="basic-addon1">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">Category</span>
-                            <select class="form-control" name="category" aria-label="Username" aria-describedby="basic-addon1">
-                                <option value="All">All</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}" @selected($category->id == $categoryID)>{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                       <input type="submit" value="Filter" class="btn btn-success w-100">
-                    </div>
-                </div>
-            </form>
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h3>Expenses</h3>
                     <div>
-                        <a type="button" class="btn btn-info" href="{{ route('expense_categories.index') }}">Expense Categories</a>
-                    <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#new">Create
-                        New</button>
+                        <a href="{{route('expense_categories.index')}}" class="btn btn-info ">Catetgories</a>
+                        <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#new">Create
+                            New</button>
                     </div>
+
                 </div>
                 <div class="card-body">
                     @if ($errors->any())
@@ -56,8 +27,8 @@
                         <thead>
                             <th>#</th>
                             <th>Ref #</th>
-                            <th>Expensed By</th>
                             <th>Category</th>
+                            <th>Account</th>
                             <th>Date</th>
                             <th>Notes</th>
                             <th>Amount</th>
@@ -68,15 +39,12 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $tran->refID }}</td>
-                                    <td>{{ $tran->user->name }}</td>
                                     <td>{{ $tran->category->name }}</td>
+                                    <td>{{ $tran->account->title }}</td>
                                     <td>{{ date('d M Y', strtotime($tran->date)) }}</td>
                                     <td>{{ $tran->notes }}</td>
                                     <td>{{ number_format($tran->amount) }}</td>
                                     <td>
-                                        <a href="{{ route('expenses.show', $tran->id) }}"
-                                            class="btn btn-primary">View</a>
-
                                         <a href="{{ route('expense.delete', $tran->refID) }}"
                                             class="btn btn-danger">Delete</a>
                                     </td>
@@ -92,41 +60,48 @@
 
     <div id="new" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
         style="display: none;">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="myModalLabel">Create Expense</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                 </div>
-                <form action="{{ route('expenses.store') }}" enctype="multipart/form-data" method="post">
+                <form action="{{ route('expenses.store') }}" method="post">
                     @csrf
                     <div class="modal-body">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group mt-2">
-                                    <label for="category">Category</label>
-                                    <select name="category" required id="category" class="form-control">
-                                        <option value="">Select Category</option>
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group mt-2">
-                                    <label for="date">Date</label>
-                                    <input type="date" name="date" required id="date" value="{{ date('Y-m-d') }}"
-                                        class="form-control">
-                                </div>
-                                <div class="form-group mt-2">
-                                    <label for="notes">Notes</label>
-                                    <textarea name="notes" required id="notes" cols="30" class="form-control" rows="5"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                @include('layout.payment')
-                            </div>
+                        <div class="form-group mt-2">
+                            <label for="account">Account</label>
+                            <select name="accountID" id="account" required class="selectize">
+                                <option value=""></option>
+                                @foreach ($accounts as $account)
+                                    <option value="{{ $account->id }}">{{ $account->title }}</option>
+                                @endforeach
+                            </select>
                         </div>
+                        <div class="form-group mt-2">
+                            <label for="category">Category</label>
+                            <select name="catID" id="category" required class="selectize">
+                                <option value=""></option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}
 
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="amount">Amount</label>
+                            <input type="number" step="any" name="amount" required id="amount"
+                                class="form-control">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="date">Date</label>
+                            <input type="date" name="date" required id="date" value="{{ date('Y-m-d') }}"
+                                class="form-control">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="notes">Notes</label>
+                            <textarea name="notes" required id="notes" cols="30" class="form-control" rows="5"></textarea>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
@@ -161,5 +136,12 @@
     <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
 
     <script src="{{ asset('assets/libs/selectize/selectize.min.js') }}"></script>
-   
+    <script>
+        $(".selectize").selectize({
+    diacritics: true,
+    onType: function (query) {
+        query = query.normalize('NFC'); // Normalize the query to ensure consistent search
+    }
+        });
+    </script>
 @endsection

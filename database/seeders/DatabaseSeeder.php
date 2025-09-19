@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(branchesSeeder::class);
        $this->call(accountsSeeder::class);
        $this->call(userSeeder::class);
+       $this->call(expenseCategorySeeder::class);
 
     }
 }
