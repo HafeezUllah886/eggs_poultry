@@ -91,6 +91,10 @@
                                     data-key="t-pickers">Account Adjustments </a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('transfers.index') }}" class="nav-link"
+                                    data-key="t-pickers">Transfers </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('expenses.index') }}" class="nav-link"
                                     data-key="t-pickers">Expenses </a>
                             </li>
@@ -106,6 +110,20 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ route('branches.index') }}" class="nav-link" data-key="t-chat">Branches
+                                    List </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#products" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarApps">
+                        <i class="ri-apps-2-line"></i> <span data-key="t-apps">Products</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="products">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('products.index') }}" class="nav-link" data-key="t-chat">Products
                                     List </a>
                             </li>
                         </ul>
