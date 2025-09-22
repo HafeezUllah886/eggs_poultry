@@ -33,7 +33,7 @@
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ number_format($item->pprice,0) }}</td>
-                                    <td>{{ number_format($item->price,0) }}</td>
+                                    <td>{{ number_format($item->sprice,0) }}</td>
                                     <td>
                                         <div class="dropdown">
                                                <button class="btn btn-soft-secondary btn-sm dropdown" type="button"
