@@ -18,7 +18,7 @@ class AccountAdjustmentController extends Controller
     {
         $from = $request->from ?? firstDayOfMonth();
         $to = $request->to ?? lastDayOfMonth();
-        $accountAdjustments = AccountAdjustment::currentBranch()->whereBetween('created_at', [$from, $to])->get();
+        $accountAdjustments = AccountAdjustment::currentBranch()->whereBetween('date', [$from, $to])->get();
 
         $accounts = accounts::currentBranch()->get();
         return view('finance.accounts_adjustments.index', compact('accountAdjustments', 'from', 'to', 'accounts'));
