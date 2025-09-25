@@ -63,6 +63,24 @@
                     </a>
                 </li> 
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#purchase" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarApps">
+                        <i class="ri-shopping-cart-line"></i><span data-key="t-apps">Purchase</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="purchase">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a onclick="newWindow('{{ route('purchase.create') }}')" class="nav-link"
+                                    data-key="t-chat">Create Purchase</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('purchase.index') }}" class="nav-link" data-key="t-chat"> Purchase
+                                    History </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarFinance" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarFinance">
                         <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Finance</span>

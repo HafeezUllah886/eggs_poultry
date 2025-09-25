@@ -10,9 +10,9 @@ class products extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function unit()
+    public function units()
     {
-        return $this->belongsTo(units::class, 'unitID');
+        return $this->hasMany(product_units::class, 'product_id');
     }
 
     public function saleDetails()
@@ -28,11 +28,6 @@ class products extends Model
     public function brand()
     {
         return $this->belongsTo(brands::class, 'brandID');
-    }
-
-    public function units()
-    {
-        return $this->hasMany(product_units::class, 'productID');
     }
 
     public function scopeActive($query)
