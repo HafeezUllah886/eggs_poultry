@@ -26,10 +26,12 @@ class PurchaseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $purchases = purchase::with('payments')->orderby('id', 'desc')->paginate(10);
-        return view('purchase.index', compact('purchases'));
+        $from = $request->from ?? firstDayofMonth();
+        $to = $request->to ?? date("Y-m-d");
+        $purchases = purchase::whereBetween('date', [$from, $to])->orderby('id', 'desc')->get();
+        return view('purchase.index', compact('purchases', 'from', 'to'));
     }
 
     /**
@@ -70,7 +72,6 @@ class PurchaseController extends Controller
             );
 
             $ids = $request->id;
-            dashboard();
             $total = 0;
             $total_pkr = 0;
             foreach($ids as $key => $id)
@@ -92,22 +93,6 @@ class PurchaseController extends Controller
                     $total_pkr += $amount_pkr;
 
 
-                    $table->foreignId('purchase_id')->constrained('purchases', 'id');
-                    $table->foreignId('branch_id')->nullable()->constrained('branches')->nullOnDelete();
-                    $table->foreignId('product_id')->constrained('products', 'id');
-                    $table->decimal('price', 10, 2);
-                    $table->decimal('price_pkr', 10, 2);
-                    $table->decimal('qty', 10, 2);
-                    $table->decimal('loose', 10, 2);
-                    $table->decimal('bonus', 10, 2);
-                    $table->decimal('pc', 10, 2);
-                    $table->decimal('amount', 15, 2);
-                    $table->decimal('amount_pkr', 15, 2);
-                    $table->string('unit_name')->nullable();
-                    $table->bigInteger('unit_value')->nullable();
-                    $table->date('date');
-                    $table->bigInteger('refID');
-
                 purchase_details::create(
                     [
                         'purchase_id'   => $purchase->id,
@@ -127,12 +112,12 @@ class PurchaseController extends Controller
                     ]
                 );
 
-                createStock($id, $pc, 0, $request->date, "Purchased", $ref);
+                createStock($id, $pc, 0, $request->date, "Purchased", $ref, auth()->user()->branch_id);
             }
 
             $purchase->update(
                 [
-                    'total'       => $total,
+                    'total'           => $total,
                     'total_pkr'       => $total_pkr,
                 ]
             );

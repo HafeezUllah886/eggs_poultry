@@ -2,6 +2,27 @@
 @section('content')
     <div class="row">
         <div class="col-12">
+            <form>
+                <div class="row g-1">
+                    <div class="col-md-5">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">From</span>
+                            <input type="date" class="form-control" placeholder="Username" name="from"
+                                value="{{ $from }}" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">To</span>
+                            <input type="date" class="form-control" placeholder="Username" name="to"
+                                value="{{ $to }}" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" value="Filter" class="btn btn-success w-100">
+                    </div>
+                </div>
+            </form>
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h3>Purchases</h3>
@@ -23,27 +44,22 @@
                             <th>#</th>
                             <th>ID</th>
                             <th>Inv #</th>
-                            <th>Vendor</th>
+                            <th>Supplier</th>
                             <th>Date</th>
                             <th>Amount</th>
+                            <th>Amount PKR</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
                             @foreach ($purchases as $key => $purchase)
-                                @php
-                                    $amount = $purchase->total;
-                                    $paid = $purchase->payments->sum('amount');
-                                    $due = $amount - $paid;
-                                @endphp
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $purchase->id}}</td>
                                     <td>{{ $purchase->inv ?? "-" }}</td>
-                                    <td>{{ $purchase->vendor->title }}</td>
+                                    <td>{{ $purchase->supplier->title }}</td>
                                     <td>{{ date('d M Y', strtotime($purchase->date)) }}</td>
-                                    <td>{{ number_format($amount) }}</td>
-                                  {{--   <td>{{ number_format($paid) }}</td>
-                                    <td>{{ number_format($due) }}</td> --}}
+                                    <td>{{ number_format($purchase->total) }}</td>
+                                    <td>{{ number_format($purchase->total_pkr) }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-soft-secondary btn-sm dropdown" type="button"
@@ -64,12 +80,7 @@
                                                         Edit
                                                     </a>
                                                 </li>
-                                                {{-- <li>
-                                                    <a class="dropdown-item" onclick="newWindow('{{route('purchasePayment.index', $purchase->id)}}')">
-                                                        <i class="ri-money-dollar-circle-fill align-bottom me-2 text-muted"></i>
-                                                        Payments
-                                                    </a>
-                                                </li> --}}
+                                                
                                                 <li>
                                                     <a class="dropdown-item text-danger" href="{{route('purchases.delete', $purchase->id)}}">
                                                         <i class="ri-delete-bin-2-fill align-bottom me-2 text-danger"></i>
@@ -84,9 +95,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="card-footer">
-                    {{$purchases->links()}}
-                </div>
+               
             </div>
         </div>
     </div>

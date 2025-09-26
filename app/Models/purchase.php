@@ -10,18 +10,14 @@ class purchase extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function vendor()
+    public function supplier()
     {
-        return $this->belongsTo(accounts::class, 'vendorID');
+        return $this->belongsTo(accounts::class, 'supplier_id');
     }
 
     public function details()
     {
-        return $this->hasMany(purchase_details::class, 'purchaseID');
+        return $this->hasMany(purchase_details::class, 'purchase_id');
     }
 
-    public function payments()
-    {
-        return $this->hasMany(purchase_payments::class, 'purchaseID');
-    }
 }

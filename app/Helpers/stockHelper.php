@@ -10,7 +10,7 @@ use App\Models\stock;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-function createStock($id, $cr, $db, $date, $notes, $ref, $batch)
+function createStock($id, $cr, $db, $date, $notes, $ref, $branch)
 {
     stock::create(
         [
@@ -20,7 +20,7 @@ function createStock($id, $cr, $db, $date, $notes, $ref, $batch)
             'date'          => $date,
             'notes'         => $notes,
             'refID'         => $ref,
-            'batch_id'         => $batch,
+            'branch_id'     => $branch,
         ]
     );
 }

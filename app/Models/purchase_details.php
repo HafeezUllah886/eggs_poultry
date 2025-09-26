@@ -12,12 +12,9 @@ class purchase_details extends Model
 
     public function product()
     {
-        return $this->belongsTo(products::class, 'productID');
+        return $this->belongsTo(products::class, 'product_id');
     }
 
-    public function warehouse()
-    {
-        return $this->belongsTo(warehouses::class, 'warehouseID');
-    }
+  
 
 }
