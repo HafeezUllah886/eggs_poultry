@@ -23,7 +23,7 @@ class accountsSeeder extends Seeder
         ]);
 
         accounts::create([
-            'title'     => "Test Supplier",
+            'title'     => "Walk-in Supplier",
             'category'  => "Supplier",
             'currency'  => "PKR",
             'status'    => "Active",
@@ -31,7 +31,7 @@ class accountsSeeder extends Seeder
         ]);
 
         accounts::create([
-            'title'     => "Test Customer",
+            'title'     => "Walk-in Customer",
             'category'  => "Customer",
             'currency'  => "PKR",
             'status'    => "Active",

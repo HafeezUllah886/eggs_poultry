@@ -13,20 +13,19 @@ return new class extends Migration
     {
         Schema::create('purchase_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('purchaseID')->constrained('purchases', 'id');
+            $table->foreignId('purchase_id')->constrained('purchases', 'id');
             $table->foreignId('branch_id')->nullable()->constrained('branches')->nullOnDelete();
-            $table->foreignId('productID')->constrained('products', 'id');
+            $table->foreignId('product_id')->constrained('products', 'id');
             $table->decimal('price', 10, 2);
-            $table->decimal('pricePKR', 10, 2);
+            $table->decimal('price_pkr', 10, 2);
             $table->decimal('qty', 10, 2);
             $table->decimal('loose', 10, 2);
             $table->decimal('bonus', 10, 2);
             $table->decimal('pc', 10, 2);
             $table->decimal('amount', 15, 2);
-            $table->decimal('amountPKR', 15, 2);
+            $table->decimal('amount_pkr', 15, 2);
             $table->string('unit_name')->nullable();
             $table->bigInteger('unit_value')->nullable();
-            $table->date('expiry')->nullable();
             $table->date('date');
             $table->bigInteger('refID');
             $table->timestamps();

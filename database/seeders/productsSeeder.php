@@ -31,7 +31,6 @@ class productsSeeder extends Seeder
             ['product_id' => 2, 'name' => 'Dzn', 'value' => 12],
             ['product_id' => 2, 'name' => 'Tray', 'value' => 30],
             ['product_id' => 2, 'name' => 'Carton', 'value' => 100],
-           
         ];
 
         product_units::insert($data1);
