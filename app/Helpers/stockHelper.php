@@ -26,8 +26,8 @@ function createStock($id, $cr, $db, $date, $notes, $ref, $branch)
 }
 function getStock($id){
    
-        $cr  = stock::where('productID', $id)->sum('cr');
-        $db  = stock::where('productID', $id)->sum('db');
+        $cr  = stock::where('product_id', $id)->sum('cr');
+        $db  = stock::where('product_id', $id)->sum('db');
   
     return $cr - $db;
 }

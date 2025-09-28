@@ -9,4 +9,14 @@ class stock extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function product()
+    {
+        return $this->belongsTo(products::class);
+    }
+
+    public function ScopeCurrentBranch($query)
+    {
+        return $query->where('branch_id', auth()->user()->branch_id);
+    }
 }

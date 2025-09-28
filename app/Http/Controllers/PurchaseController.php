@@ -76,7 +76,7 @@ class PurchaseController extends Controller
             $total_pkr = 0;
             foreach($ids as $key => $id)
             {
-                if($request->qty[$key] > 0)
+                if($request->amount[$key] > 0)
                 {
                     $qty = $request->qty[$key];
                     $loose = $request->loose[$key];
@@ -115,16 +115,17 @@ class PurchaseController extends Controller
                 createStock($id, $pc, 0, $request->date, "Purchased", $ref, auth()->user()->branch_id);
             }
 
-            $purchase->update(
-                [
-                    'total'           => $total,
-                    'total_pkr'       => $total_pkr,
-                ]
-            );
-            createTransaction($request->supplierID, $request->date, 0, $total, "Pending Amount of Purchase No. $purchase->id", $ref);
-            DB::commit();
-            return back()->with('success', "Purchase Created");
+          
         }
+        $purchase->update(
+            [
+                'total'           => $total,
+                'total_pkr'       => $total_pkr,
+            ]
+        );
+        createTransaction($request->supplierID, $request->date, 0, $total, "Pending Amount of Purchase No. $purchase->id", $ref);
+        DB::commit();
+        return back()->with('success', "Purchase Created");
     }
         catch(\Exception $e)
         {
