@@ -81,6 +81,25 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sale" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarApps">
+                        <i class="ri-shopping-cart-line"></i><span data-key="t-apps">Sale</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sale">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a onclick="newWindow('{{ route('sale.create') }}')" class="nav-link"
+                                    data-key="t-chat">Create Sale</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('sale.index') }}" class="nav-link" data-key="t-chat"> Sale
+                                    History </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+               
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarFinance" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarFinance">
                         <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Finance</span>

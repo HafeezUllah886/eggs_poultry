@@ -9,6 +9,7 @@ require __DIR__ . '/setups.php';
 require __DIR__ . '/finance.php';
 require __DIR__ . '/purchase.php';
 require __DIR__ . '/stock.php';
+require __DIR__ . '/sale.php';
 
 Route::middleware('auth')->group(function () {
 
