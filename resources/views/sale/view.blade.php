@@ -27,7 +27,7 @@
                                     <div class="col-4">
                                         <p class="text-muted mb-2 text-uppercase fw-semibold">Customer</p>
                                         <h5 class="fs-14 mb-0"> <span class="text-muted">M/S :</span> {{$sale->customer->title}}</h5>
-                                        @if ($sale->customerID != 3)
+                                        @if ($sale->customer_id != 3)
                                         <h5 class="fs-14 mb-0"> <span class="text-muted">Contact :</span> {{$sale->customer->contact ?? "NA"}}</h5>
                                         <h5 class="fs-14 mb-0"> <span class="text-muted">Address :</span> {{$sale->customer->address ?? "NA"}}</h5>
                                         @endif
