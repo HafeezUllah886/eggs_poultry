@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('rate_type')->default('multiply');
             $table->float('total')->default(0);
             $table->float('total_pkr')->default(0);
-            $table->string("inv")->nullable();
             $table->text('notes')->nullable();
             $table->bigInteger('refID');
             $table->timestamps();

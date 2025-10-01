@@ -25,7 +25,7 @@
             </form>
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h3>Purchases</h3>
+                    <h3>Sales</h3>
 
                 </div>
                 <div class="card-body">
@@ -43,23 +43,21 @@
                         <thead>
                             <th>#</th>
                             <th>ID</th>
-                            <th>Inv #</th>
-                            <th>Supplier</th>
+                            <th>Customer</th>
                             <th>Date</th>
                             <th>Amount</th>
                             <th>Amount PKR</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
-                            @foreach ($purchases as $key => $purchase)
+                            @foreach ($sales as $key => $sale)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $purchase->id}}</td>
-                                    <td>{{ $purchase->inv ?? "-" }}</td>
-                                    <td>{{ $purchase->supplier->title }}</td>
-                                    <td>{{ date('d M Y', strtotime($purchase->date)) }}</td>
-                                    <td>{{ number_format($purchase->total) }}</td>
-                                    <td>{{ number_format($purchase->total_pkr) }}</td>
+                                    <td>{{ $sale->id}}</td>
+                                    <td>{{ $sale->customer->title }}</td>
+                                    <td>{{ date('d M Y', strtotime($sale->date)) }}</td>
+                                    <td>{{ number_format($sale->total) }}</td>
+                                    <td>{{ number_format($sale->total_pkr) }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-soft-secondary btn-sm dropdown" type="button"
@@ -68,21 +66,21 @@
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end">
                                                 <li>
-                                                    <button class="dropdown-item" onclick="newWindow('{{route('purchase.show', $purchase->id)}}')"
+                                                    <button class="dropdown-item" onclick="newWindow('{{route('sale.show', $sale->id)}}')"
                                                         onclick=""><i
                                                             class="ri-eye-fill align-bottom me-2 text-muted"></i>
                                                         View
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <a class="dropdown-item" onclick="newWindow('{{route('purchase.edit', $purchase->id)}}')">
+                                                    <a class="dropdown-item" onclick="newWindow('{{route('sale.edit', $sale->id)}}')">
                                                         <i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                         Edit
                                                     </a>
                                                 </li>
                                                 
                                                 <li>
-                                                    <a class="dropdown-item text-danger" href="{{route('purchases.delete', $purchase->id)}}">
+                                                    <a class="dropdown-item text-danger" href="{{route('sales.delete', $sale->id)}}">
                                                         <i class="ri-delete-bin-2-fill align-bottom me-2 text-danger"></i>
                                                         Delete
                                                     </a>

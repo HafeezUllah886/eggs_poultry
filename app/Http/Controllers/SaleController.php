@@ -42,6 +42,7 @@ class SaleController extends Controller
     public function create()
     {
         $products = products::orderby('name', 'asc')->get();
+        
         $customers = accounts::customer()->get();
         $accounts = accounts::business()->get();
         return view('sale.create', compact('products', 'customers', 'accounts'));
@@ -68,7 +69,6 @@ class SaleController extends Controller
                   'rate'               => $request->rate,
                   'rate_type'          => $request->rate_type,
                   'customer_name'      => $request->customer_name,
-                  'inv'                => $request->inv,
                   'refID'              => $ref,
                 ]
             );
@@ -94,6 +94,8 @@ class SaleController extends Controller
                     $amount_pkr = $price_pkr * $qty;
                     $total_pkr += $amount_pkr;
 
+                    $stock_pc = $pc + $bonus;
+
 
                 sale_details::create(
                     [
@@ -114,9 +116,8 @@ class SaleController extends Controller
                     ]
                 );
 
-                createStock($id, 0, $pc, $request->date, "Sale", $ref, auth()->user()->branch_id);
+                createStock($id, 0, $stock_pc, $request->date, "Sale", $ref, auth()->user()->branch_id);
             }
-
           
         }
         $sale->update(

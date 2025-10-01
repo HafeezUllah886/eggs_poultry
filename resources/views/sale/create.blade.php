@@ -27,7 +27,9 @@
                                 <select name="product" class="selectize" id="product">
                                     <option value=""></option>
                                     @foreach ($products as $product)
+                                    @if($product->currentBranchStock() > 0)
                                         <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -76,10 +78,10 @@
                                 </table>
                             </div>
                             <div class="col-3">
-                                <div class="form-group">
+                               {{--  <div class="form-group">
                                     <label for="comp">Purchase Inv No.</label>
                                     <input type="text" name="inv" id="inv" class="form-control">
-                                </div>
+                                </div> --}}
                                 <div class="form-group mt-2">
                                     <label for="date">Date</label>
                                     <input type="date" name="date" id="date" value="{{ date('Y-m-d') }}"
@@ -168,12 +170,7 @@
                             html += '<option data-unit="'+unit.value+'" value="' + unit.id + '">' + unit.name + '</option>';
                         });
                         html += '</select></td>';
-                        html +=
-                            '<td class="no-padding"><input type="number" name="qty[]" oninput="updateChanges(' +
-                            id +
-                            ')" step="any" value="1" min="0" class="form-control text-center no-padding" id="qty_' +
-                            id +
-                            '"></td>';
+                        html += '<td class="no-padding"><div class="input-group"><span class="input-group-text no-padding stock_'+id+'" id="basic-addon2">'+product.stock+'</span><input type="number" name="qty[]" oninput="updateChanges(' + id + ')" max="'+product.stock+'" min="0" required step="any" value="1" class="form-control text-center no-padding" id="qty_' + id + '"> </div></td>';
                         html +=
                             '<td class="no-padding"><input type="number" name="loose[]" oninput="updateChanges(' +
                             id +
@@ -200,7 +197,9 @@
                             '<td class="no-padding"> <span class="btn btn-sm btn-danger" onclick="deleteRow(' +
                             id + ')">X</span> </td>';
                         html += '<input type="hidden" name="id[]" value="' + id + '" id="productID_' + id + '">';
+                        html += '<input type="hidden" id="stockInput_'+id+'" value="'+product.stock+'">';
                         html += '</tr>';
+                       
                         $("#products_list").prepend(html);
                         existingProducts.push(id);
                         updateChanges(id);
@@ -216,8 +215,25 @@
 
             var qty = parseFloat($('#qty_' + id).val());
             var loose = parseFloat($('#loose_' + id).val());
+            var bonus = parseFloat($('#bonus_' + id).val());
             var price = parseFloat($('#price_' + id).val());
             var unit = $('#unit_' + id).find(':selected').data('unit');
+            var stock = parseFloat($('#stockInput_' + id).val());
+
+            var unit_qty = unit * qty;
+            var stock_place = stock / unit;
+            var totalQty = unit_qty + loose + bonus;
+
+            $("#qty_"+id).attr("max", stock_place);
+            $(".stock_"+id).html(stock_place.toFixed(0));
+
+            if(totalQty > stock)
+            {
+                $('#qty_' + id).val(0);
+                $('#loose_' + id).val(0);
+                $('#bonus_' + id).val(0);
+                alert("Qty Exceeted then availble Stock");
+            }
 
             var price_pkr = rateType == 'multiply' ? price * rate : price / rate;
             var amount_pkr = ((qty * unit) + loose) * price_pkr;

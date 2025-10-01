@@ -32,3 +32,11 @@ function getStock($id){
     return $cr - $db;
 }
 
+function branchWiseProductStock($id, $branch)
+{
+    $cr  = stock::where('product_id', $id)->where('branch_id', $branch)->sum('cr');
+    $db  = stock::where('product_id', $id)->where('branch_id', $branch)->sum('db');
+  
+    return $cr - $db;
+}
+

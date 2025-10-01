@@ -91,6 +91,7 @@ class PurchaseController extends Controller
                     $total += $amount;
                     $amount_pkr = $price_pkr * $qty;
                     $total_pkr += $amount_pkr;
+                    $stock_pc = $pc + $bonus;
 
 
                 purchase_details::create(
@@ -112,10 +113,8 @@ class PurchaseController extends Controller
                     ]
                 );
 
-                createStock($id, $pc, 0, $request->date, "Purchased", $ref, auth()->user()->branch_id);
+                createStock($id, $stock_pc, 0, $request->date, "Purchased", $ref, auth()->user()->branch_id);
             }
-
-          
         }
         $purchase->update(
             [
@@ -334,6 +333,7 @@ class PurchaseController extends Controller
     public function getSignleProduct($id)
     {
         $product = products::with('units')->find($id);
+        $product->stock = $product->currentBranchStock();
         return $product;
     }
 }

@@ -17,17 +17,7 @@ class products extends Model
 
     public function saleDetails()
     {
-        return $this->hasMany(sale_details::class, 'productID');
-    }
-
-    public function category()
-    {
-        return $this->belongsTo(categories::class, 'catID');
-    }
-
-    public function brand()
-    {
-        return $this->belongsTo(brands::class, 'brandID');
+        return $this->hasMany(sale_details::class, 'product_id');
     }
 
     public function scopeActive($query)
@@ -35,30 +25,24 @@ class products extends Model
         return $query->where('status', 'Active');
 
     }
-    public function scopeVendor($query, $id)
-    {
-        return $query->where('vendorID', $id);
 
+    public function stock()
+    {
+        $cr  = stock::where('product_id', $this->id)->sum('cr');
+        $db  = stock::where('product_id', $this->id)->sum('db');
+  
+    return $cr - $db;
     }
 
-    public function dcs()
+    public function currentBranchStock()
     {
-        return $this->hasMany(product_dc::class, 'productID');
+        $branch = auth()->user()->branch_id;
+        $cr  = stock::where('product_id', $this->id)->where('branch_id', $branch)->sum('cr');
+        $db  = stock::where('product_id', $this->id)->where('branch_id', $branch)->sum('db');
+  
+    return $cr - $db;
     }
 
-    public function branch()
-    {
-        return $this->belongsTo(branches::class, 'branchID', 'id');
-    }
 
-    public function scopeCurrentBranch($query)
-    {
-        return $query->where('branchID', auth()->user()->branchID);
-    }
-
-    public function vendor()
-    {
-        return $this->belongsTo(accounts::class, 'vendorID');
-    }
 
 }
