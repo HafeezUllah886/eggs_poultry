@@ -138,20 +138,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#branches" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-apps-2-line"></i> <span data-key="t-apps">Branches</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="branches">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('branches.index') }}" class="nav-link" data-key="t-chat">Branches
-                                    List </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+               
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#stock" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarApps">
@@ -167,6 +154,23 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#production" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarApps">
+                        <i class="ri-stack-line"></i><span data-key="t-apps">Production</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="production">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('production.create') }}" class="nav-link" data-key="t-chat">Create</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('production.index') }}" class="nav-link" data-key="t-chat">History</a>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#products" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-apps-2-line"></i> <span data-key="t-apps">Products</span>
@@ -175,6 +179,20 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ route('products.index') }}" class="nav-link" data-key="t-chat">Products
+                                    List </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#branches" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarApps">
+                        <i class="ri-apps-2-line"></i> <span data-key="t-apps">Branches</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="branches">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('branches.index') }}" class="nav-link" data-key="t-chat">Branches
                                     List </a>
                             </li>
                         </ul>

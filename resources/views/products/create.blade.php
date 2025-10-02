@@ -44,6 +44,7 @@
                                         <select name="for_production" id="for_production" class="form-control">
                                             <option value="No">No</option>
                                             <option value="Yes">Yes</option>
+                                            <option value="Produced">Produced</option>
                                         </select>
                                     </div>
                                 </div>

@@ -48,6 +48,7 @@
                                     <select name="for_production" id="for_production" class="selectize">
                                         <option value="No" @selected($product->for_production == 'No')>No</option>
                                         <option value="Yes" @selected($product->for_production == 'Yes')>Yes</option>
+                                        <option value="Produced" @selected($product->for_production == 'Produced')>Produced</option>
                                     </select>
                                 </div>
                             </div>

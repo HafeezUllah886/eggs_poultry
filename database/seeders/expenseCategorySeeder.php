@@ -14,7 +14,7 @@ class expenseCategorySeeder extends Seeder
     public function run(): void
     {
         $cats = [
-            ['name' => 'Category 1'],
+            ['name' => 'Production Expense'],
             ['name' => 'Category 2'],
         ];
 

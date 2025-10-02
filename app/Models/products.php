@@ -43,6 +43,24 @@ class products extends Model
     return $cr - $db;
     }
 
+    public function scopeProductionYes($query)
+    {
+        return $query->where('for_production', 'Yes');
+    }
 
+    public function scopeProductionNo($query)
+    {
+        return $query->where('for_production', 'No');
+    }
+
+    public function scopeProduced($query)
+    {
+        return $query->where('for_production', 'Produced');
+    }
+
+    public function scopeCannotProduce($query)
+    {
+        return $query->where('for_production', '!=', 'Produced');
+    }
 
 }
