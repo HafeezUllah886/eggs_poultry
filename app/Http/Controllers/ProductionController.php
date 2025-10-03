@@ -21,7 +21,7 @@ class ProductionController extends Controller
        $to = $request->to ?? date('Y-m-d');
       
        $productions = production::whereBetween('date', [$from, $to])->currentBranch()->get();
-        return view('production.index', compact('productions'));
+        return view('production.index', compact('productions', 'from', 'to'));
     }
 
     /**

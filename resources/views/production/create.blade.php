@@ -11,7 +11,7 @@
                                     <h3> Create Production </h3>
                                 </div>
                                 <div class="col-6 d-flex flex-row-reverse">
-                                    <button onclick="window.close()" class="btn btn-danger">Close</button>
+                                    <a href='{{route('production.index')}}' class="btn btn-danger">Close</a>
                                 </div>
                             </div>
                         </div>
