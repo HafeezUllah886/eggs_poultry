@@ -21,7 +21,10 @@ class ProductionController extends Controller
        $to = $request->to ?? date('Y-m-d');
       
        $productions = production::whereBetween('date', [$from, $to])->currentBranch()->get();
-        return view('production.index', compact('productions', 'from', 'to'));
+
+       $initial_products = products::productionYes()->get();
+        $final_products = products::produced()->get();
+        return view('production.index', compact('productions', 'from', 'to', 'initial_products', 'final_products'));
     }
 
     /**
@@ -44,16 +47,11 @@ class ProductionController extends Controller
             'initial_product' => 'required',
             'initial_qty' => 'required',
             'final_product' => 'required',
-            'final_qty' => 'required',
-            'expense' => 'required',
-            'account' => 'required',
             'date' => 'required',
         ]);
 
         try {
-
             DB::beginTransaction();
-
             $ref = getRef();
 
            $production = production::create([
@@ -62,31 +60,12 @@ class ProductionController extends Controller
                 'branch_id' => auth()->user()->branch_id,
                 'date' => $request->date,
                 'initial_qty' => $request->initial_qty,
-                'final_qty' => $request->final_qty,
-                'expense' => $request->expense,
-                'account_id' => $request->account,
                 'created_by' => auth()->user()->id,
                 'notes' => $request->notes,
                 'refID' => $ref,
             ]);
 
             createStock($request->initial_product, 0, $request->initial_qty, $request->date, 'Used in Production ID ' . $production->id, $ref, auth()->user()->branch_id);
-            createStock($request->final_product, $request->final_qty, 0, $request->date, 'Produced in Production ID ' . $production->id, $ref, auth()->user()->branch_id);
-
-            if($request->expense > 0)
-            {
-                expenses::create([
-                    'account_id' => $request->account,
-                    'branch_id' => auth()->user()->branch_id,
-                    'date' => $request->date,
-                    'amount' => $request->expense,
-                    'notes' => 'Production ID ' . $production->id,
-                    'refID' => $ref,
-                    'expense_category_id' => 1,
-                ]);
-
-                createTransaction($request->account, $request->date, 0, $request->expense, "Production Expense ID " . $production->id, $ref);
-            }
 
             DB::commit();
             return redirect()->route('production.index')->with('success', 'Production created successfully');
@@ -127,5 +106,30 @@ class ProductionController extends Controller
     public function destroy(production $production)
     {
         //
+    }
+
+    public function complete(Request $request)
+    {
+        $production = production::find($request->id);
+        try {
+            DB::beginTransaction();
+
+        $production->update(
+            [
+                'final_qty' => $request->qty,
+                'production_date' => $request->date,
+                'notes' => $request->notes,
+                'status' => "Completed"
+            ]
+        );
+
+        createStock($production->final_product_id, $request->qty, 0, $request->date, 'Produced in Production ID ' . $production->id, $production->refID, auth()->user()->branch_id);
+        DB::commit();
+        return back()->with("success", "Production Marked as Completed");
+        
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return back()->with("error", $e->getMessage());
+    }   
     }
 }

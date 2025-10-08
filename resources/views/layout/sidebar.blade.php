@@ -154,22 +154,11 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#production" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-stack-line"></i><span data-key="t-apps">Production</span>
+                    <a class="nav-link menu-link" href="{{ route('production.index') }}">
+                        <i class="ri-stack-line"></i> <span data-key="t-dashboards">Production</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="production">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('production.create') }}" class="nav-link" data-key="t-chat">Create</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('production.index') }}" class="nav-link" data-key="t-chat">History</a>
-                            </li>
-                           
-                        </ul>
-                    </div>
-                </li>
+                </li> 
+               
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#products" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarApps">

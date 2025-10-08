@@ -17,12 +17,12 @@ return new class extends Migration
             $table->foreignId('final_product_id')->constrained('products')->cascadeOnDelete();
             $table->foreignId('branch_id')->constrained('branches')->cascadeOnDelete();
             $table->date('date');
-            $table->decimal('initial_qty');
-            $table->decimal('final_qty');
-            $table->decimal('expense', 10, 2);
-            $table->foreignId('account_id')->constrained('accounts')->cascadeOnDelete();
+            $table->date('production_date')->nullable();
+            $table->decimal('initial_qty', 10, 2);
+            $table->decimal('final_qty', 10, 2)->nullable();
             $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
             $table->text('notes')->nullable();
+            $table->enum('status', ['Pending', 'Completed'])->default('Pending');
             $table->bigInteger('refID');
             $table->timestamps();
         });
