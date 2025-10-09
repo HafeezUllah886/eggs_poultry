@@ -81,7 +81,7 @@ class ProductionController extends Controller
      */
     public function show(production $production)
     {
-        //
+        return view('production.view', compact('production'));
     }
 
     /**

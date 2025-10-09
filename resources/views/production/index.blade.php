@@ -67,6 +67,11 @@
                                                 <i class="ri-more-fill align-middle"></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end">
+                                                <button class="dropdown-item" onclick="newWindow('{{route('production.show', $production->id)}}')"
+                                                    onclick=""><i
+                                                        class="ri-eye-fill align-bottom me-2 text-muted"></i>
+                                                    View
+                                                </button>
                                                 @if($production->status == "Pending")
                                                 <li>
                                                     <a class="dropdown-item" data-bs-toggle="modal"
@@ -78,11 +83,7 @@
                                                 @endIf
 
                                                 {{--  <li>
-                                                    <button class="dropdown-item" onclick="newWindow('{{route('production.show', $production->id)}}')"
-                                                        onclick=""><i
-                                                            class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                        View
-                                                    </button>
+                                                  
                                                 </li>
                                                 <li>
                                                     <a class="dropdown-item" onclick="newWindow('{{route('production.edit', $production->id)}}')">
