@@ -8,6 +8,7 @@ use App\Http\Controllers\StaffAmountAdjustmentController;
 use App\Http\Controllers\TransferController;
 use App\Http\Middleware\confirmPassword;
 use App\Models\attachment;
+use App\Models\accounts;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
@@ -16,7 +17,6 @@ Route::middleware('auth')->group(function () {
     Route::get('account/status/{id}', [AccountsController::class, 'status'])->name('account.status');
     Route::resource('account', AccountsController::class);
 
-    
     Route::resource('accounts_adjustments', AccountAdjustmentController::class);
     Route::get('accounts_adjustments/delete/{ref}', [AccountAdjustmentController::class, 'delete'])->name('accounts_adjustments.delete')->middleware(confirmPassword::class);
 
@@ -28,7 +28,6 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('expense_categories', ExpenseCategoriesController::class);
 
-
     Route::get('/accountbalance/{id}', function ($id) {
         // Call your Laravel helper function here
         $result = getAccountBalance($id);
@@ -36,5 +35,10 @@ Route::middleware('auth')->group(function () {
         return response()->json(['data' => $result]);
     });
 
+    Route::get('get_account/{id}', function ($id) {
+       
+       $account = accounts::find($id);
 
+        return response()->json($account);
+    });
 });

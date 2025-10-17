@@ -58,8 +58,8 @@
                                         <th class="text-center">Qty</th>
                                         <th class="text-center">Loose</th>
                                         <th class="text-center">Bonus</th>
-                                        <th class="text-center">Price</th>
-                                        <th class="text-center">Amount</th>
+                                        <th class="text-center">Price (<span class="currency_placeholder"></span>)</th>
+                                        <th class="text-center">Amount (<span class="currency_placeholder"></span>)</th>
                                         <th class="text-center">Price PKR</th>
                                         <th class="text-center">Amount PKR</th>
                                         <th></th>
@@ -92,7 +92,7 @@
                                     <label for="supplier">Supplier</label>
                                     <select name="supplierID" id="supplierID" class="selectize1">
                                         @foreach ($supplier as $supplier)
-                                            <option value="{{ $supplier->id }}">{{ $supplier->title }}</option>
+                                            <option value="{{ $supplier->id }}" data-currency='{{ $supplier->currency }}'>{{ $supplier->title }} - {{ $supplier->currency }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -265,14 +265,26 @@
             });
         }
 
+      
         function checkAccount() {
             var id = $("#supplierID").find(":selected").val();
-            if (id == 3) {
+            if (id == 2) {
                 $(".supplierName").removeClass("d-none");
             } else {
                 $(".supplierName").addClass("d-none");
             }
+             $.ajax({
+                url: "{{ url('get_account/') }}/" + id,
+                method: "GET",
+                success: function(response) {
+                   
+                    $(".currency_placeholder").html(response.currency);
+                }
+            });
+          
         }
+         checkAccount();
+
 
         $("#supplierID").on("change", function() {
             checkAccount();
@@ -317,11 +329,5 @@
             });
         });
     </script>
-    @foreach ($products as $product)
-        @if ($product->isDefault == 'Yes')
-            <script>
-                getSingleProduct({{ $product->id }});
-            </script>
-        @endif
-    @endforeach
+    
 @endsection

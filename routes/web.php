@@ -16,7 +16,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', [dashboardController::class, 'index'])->name('dashboard');
 
-
 });
 
 
