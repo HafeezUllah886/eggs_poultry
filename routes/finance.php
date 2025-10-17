@@ -6,6 +6,7 @@ use App\Http\Controllers\ExpenseCategoriesController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\StaffAmountAdjustmentController;
 use App\Http\Controllers\TransferController;
+use App\Http\Controllers\TransportController;
 use App\Http\Middleware\confirmPassword;
 use App\Models\attachment;
 use App\Models\accounts;
@@ -27,6 +28,10 @@ Route::middleware('auth')->group(function () {
     Route::get('expense/delete/{ref}', [ExpensesController::class, 'delete'])->name('expense.delete')->middleware(confirmPassword::class);
 
     Route::resource('expense_categories', ExpenseCategoriesController::class);
+
+    Route::resource('transport', TransportController::class);
+    Route::get('transport/delete/{ref}', [TransportController::class, 'delete'])->name('transport.delete')->middleware(confirmPassword::class);
+
 
     Route::get('/accountbalance/{id}', function ($id) {
         // Call your Laravel helper function here

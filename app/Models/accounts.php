@@ -32,6 +32,10 @@ class accounts extends Model
     {
         return $query->where('category', 'Supplier');
     }
+    public function scopeTransporter($query)
+    {
+        return $query->where('category', 'Transporter');
+    }
 
     public function scopeCurrentBranch($query)
     {

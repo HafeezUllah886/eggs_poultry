@@ -38,5 +38,13 @@ class accountsSeeder extends Seeder
             'branch_id' => 1,
         ]);
 
+        accounts::create([
+            'title'     => "Test Transporter",
+            'category'  => "Transporter",
+            'currency'  => "PKR",
+            'status'    => "Active",
+            'branch_id' => 1,
+        ]);
+
     }
 }

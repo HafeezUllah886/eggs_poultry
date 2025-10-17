@@ -100,11 +100,11 @@
                 </li>
                
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarFinance" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarFinance">
-                        <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Finance</span>
+                    <a class="nav-link menu-link" href="#accounts" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="accounts">
+                        <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Accounts</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarFinance">
+                    <div class="collapse menu-dropdown" id="accounts">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ route('account.create') }}" class="nav-link"
@@ -124,6 +124,20 @@
                                     data-key="t-pickers">Supplier Accounts </a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('accountsList', 'Transporter') }}" class="nav-link"
+                                    data-key="t-pickers">Transporter Accounts </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarFinance" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarFinance">
+                        <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Finance</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarFinance">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
                                 <a href="{{ route('accounts_adjustments.index') }}" class="nav-link"
                                     data-key="t-pickers">Account Adjustments </a>
                             </li>
@@ -135,6 +149,21 @@
                                 <a href="{{ route('expenses.index') }}" class="nav-link"
                                     data-key="t-pickers">Expenses </a>
                             </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarTransport" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarTransport">
+                        <i class="ri-truck-line"></i> <span data-key="t-forms">Transport</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarTransport">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('transport.index') }}" class="nav-link"
+                                    data-key="t-pickers">Transport - Others</a>
+                            </li>
+                            
                         </ul>
                     </div>
                 </li>
